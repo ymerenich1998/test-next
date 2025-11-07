@@ -5,7 +5,7 @@ export default function ArticlePage({ article }) {
     <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
       <article>
         <header>
-          <div className="relative aspect-[600/400]">
+          <div className="relative aspect-600/400">
             <Image src={"/test.jpg"} fill alt={article.title} quality={85} className=" w-full h-full object-cover" />
           </div>
           <h1 style={{ margin: "0 0 8px 0" }}>{article.title}</h1>
