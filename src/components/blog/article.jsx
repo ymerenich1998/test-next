@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+
 export default function ArticlePage({ article }) {
   return(
     <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>

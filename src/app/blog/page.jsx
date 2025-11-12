@@ -1,5 +1,8 @@
+import PostsList from "@/components/blog/posts";
+import { SearchBox } from "@/components/blog/search";
 import Link from "next/link";
-
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { Suspense } from "react";
 /**
  * Сторінка: Блоги (список)
  * Розташування: /app/blog/page.jsx (Next.js App Router)
@@ -8,11 +11,10 @@ import Link from "next/link";
  * - Якщо у вас є свій API — поміняйте URL у getBlogs().
  */
 
-export const metadata={
+export const metadata = {
   title: "Блог",
   description: "Останні публікації у блозі",
 }
-
 
 async function getBlogs() {
   // Замініть URL на ваш реальний ендпоінт (або /api/blogs)
@@ -44,47 +46,24 @@ async function getBlogs() {
 }
 
 export default async function BlogPage() {
+
   const posts = await getBlogs();
 
   return (
-    <main style={{ padding: "2rem", maxWidth: 900, margin: "0 auto" }}>
-      <header style={{ marginBottom: "1.5rem" }}>
-        <h1 style={{ margin: 0 }}>Блоги</h1>
-        <p style={{ color: "#555", marginTop: "0.5rem" }}>
-          Останні публікації
-        </p>
-      </header>
+    <NuqsAdapter>
+      <main style={{ padding: "2rem", maxWidth: 900, margin: "0 auto" }}>
+        <header style={{ marginBottom: "1.5rem" }}>
+          <h1 style={{ margin: 0 }}>Блоги</h1>
+          <p style={{ color: "#555", marginTop: "0.5rem" }}>
+            Останні публікації
+          </p>
+        </header>
 
-      {posts.length === 0 ? (
-        <p>Публікацій не знайдено.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: "1rem" }}>
-          {posts.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                padding: "1rem",
-                border: "1px solid #e6e6e6",
-                borderRadius: 8,
-                background: "#fff",
-                transition: "box-shadow .15s ease",
-              }}
-            >
-              <Link
-                href={`/blog/${post.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <h2 style={{ margin: "0 0 .5rem 0", fontSize: "1.125rem" }}>
-                  {post.title}
-                </h2>
-                {post.excerpt && (
-                  <p style={{ margin: 0, color: "#444" }}>{post.excerpt}</p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+        <SearchBox />
+        <Suspense>
+          <PostsList initialPosts={posts} />
+        </Suspense>
+      </main>
+    </NuqsAdapter>
   );
 }

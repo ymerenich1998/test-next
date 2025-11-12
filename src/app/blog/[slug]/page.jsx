@@ -12,27 +12,27 @@ import ArticlePage from "@/components/blog/article";
  * Fetch article from remote API or return null if not found.
  * Adjust NEXT_PUBLIC_API_URL environment variable to point to real backend.
  */
-async function fetchArticle(id) {
-  const base = process.env.NEXT_PUBLIC_API_URL || "";
-  if (base) {
-    try {
-      const res = await fetch(`${base.replace(/\/$/, "")}/posts/${id}`, {
-        // no-store to always fetch fresh on server; change as needed
-        cache: "no-store",
-      });
+  async function fetchArticle(id) {
+    const base = process.env.NEXT_PUBLIC_API_URL || "";
+    if (base) {
+      try {
+        const res = await fetch(`${base.replace(/\/$/, "")}/posts/${id}`, {
+          // no-store to always fetch fresh on server; change as needed
+          cache: "no-store",
+        });
 
-      console.log(`Fetching article ${id} from ${base}/posts/${id}`);
-      if (!res.ok) {
-        if (res.status === 404) return null;
-        throw new Error(`Fetch error: ${res.status}`);
+        console.log(`Fetching article ${id} from ${base}/posts/${id}`);
+        if (!res.ok) {
+          if (res.status === 404) return null;
+          throw new Error(`Fetch error: ${res.status}`);
+        }
+        return await res.json();
+      } catch (err) {
+        // логування на сервері
+        // console.error(err);
+        return null;
       }
-      return await res.json();
-    } catch (err) {
-      // логування на сервері
-      // console.error(err);
-      return null;
     }
-  }
 
   // Локальна заглушка для розвитку, якщо бекенд не налаштований
   const demo = {
