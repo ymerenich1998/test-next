@@ -1,4 +1,3 @@
-import React from "react";
 import { notFound } from "next/navigation";
 import ArticlePage from "@/components/blog/article";
 

@@ -1,6 +1,5 @@
 import PostsList from "@/components/blog/posts";
 import { SearchBox } from "@/components/blog/search";
-import Link from "next/link";
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Suspense } from "react";
 /**
