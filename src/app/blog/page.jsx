@@ -58,7 +58,9 @@ export default async function BlogPage() {
           </p>
         </header>
 
-        <SearchBox />
+        <Suspense>
+          <SearchBox />
+        </Suspense>
         <Suspense>
           <PostsList initialPosts={posts} />
         </Suspense>
